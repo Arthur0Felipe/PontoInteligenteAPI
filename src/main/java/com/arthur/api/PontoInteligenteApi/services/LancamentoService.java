@@ -7,7 +7,8 @@ import org.springframework.data.domain.PageRequest;
 import java.util.Optional;
 
 public interface LancamentoService {
-    Page<Lancamento>  buscarPorFuncionarioId(Long funcionarioId, PageRequest pageRequest);
+
+    Page<Lancamento> buscarPorFuncionarioId(Long funcionarioId, PageRequest pageRequest);
 
     Optional<Lancamento> buscarPorId(Long id);
 

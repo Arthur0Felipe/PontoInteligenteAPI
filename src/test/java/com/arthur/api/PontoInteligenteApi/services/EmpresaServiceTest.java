@@ -33,7 +33,7 @@ public class EmpresaServiceTest {
 
     @Test
     public void testBuscarEmpresaPorCnpj(){
-        Optional<Empresa> empresa = this.empresaService.buscarEmpresaPorCnpj(CNPJ);
+        Optional<Empresa> empresa = this.empresaService.buscarPorCnpj(CNPJ);
         Assertions.assertTrue(empresa.isPresent());
     }
 

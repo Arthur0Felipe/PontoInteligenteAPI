@@ -13,9 +13,7 @@ import javax.persistence.NamedQuery;
 import java.util.List;
 
 @Transactional(readOnly = true)
-@NamedQueries({
-        @NamedQuery(name = "LancamentoRepository.findByFuncionarioId",
-                query = "SELECT lanc FROM Lancamento lanc WHERE lanc.funcionario.id = :funcionarioId") })
+@NamedQueries({@NamedQuery(name = "LancamentoRepository.findByFuncionarioId", query = "SELECT lanc FROM Lancamento lanc WHERE lanc.funcionario.id = :funcionarioId")})
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 
     List<Lancamento> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId);

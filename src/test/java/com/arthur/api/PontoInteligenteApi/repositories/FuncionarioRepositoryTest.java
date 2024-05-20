@@ -4,19 +4,16 @@ import com.arthur.api.PontoInteligenteApi.entities.Empresa;
 import com.arthur.api.PontoInteligenteApi.entities.Funcionario;
 import com.arthur.api.PontoInteligenteApi.enums.PerfilEnum;
 import com.arthur.api.PontoInteligenteApi.utils.SenhaUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-import java.security.NoSuchAlgorithmException;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
+import java.security.NoSuchAlgorithmException;
+
 @SpringBootTest
 @ActiveProfiles("test")
 public class FuncionarioRepositoryTest {
@@ -28,15 +25,15 @@ public class FuncionarioRepositoryTest {
     private EmpresaRepository empresaRepository;
 
     private static final String EMAIL = "email@email.com";
-    private static final String CPF = "24291173474";
+    private static final String CPF = "45634547825";
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         Empresa empresa = this.empresaRepository.save(obterDadosEmpresa());
         this.funcionarioRepository.save(obterDadosFuncionario(empresa));
     }
 
-    @After
+    @AfterEach
     public final void tearDown() {
         this.empresaRepository.deleteAll();
     }
@@ -44,36 +41,31 @@ public class FuncionarioRepositoryTest {
     @Test
     public void testBuscarFuncionarioPorEmail() {
         Funcionario funcionario = this.funcionarioRepository.findByEmail(EMAIL);
-
-        assertEquals(EMAIL, funcionario.getEmail());
+        Assertions.assertEquals(EMAIL, funcionario.getEmail());
     }
 
     @Test
     public void testBuscarFuncionarioPorCpf() {
         Funcionario funcionario = this.funcionarioRepository.findByCpf(CPF);
-
-        assertEquals(CPF, funcionario.getCpf());
+        Assertions.assertEquals(CPF, funcionario.getCpf());
     }
 
     @Test
     public void testBuscarFuncionarioPorEmailECpf() {
         Funcionario funcionario = this.funcionarioRepository.findByCpfOrEmail(CPF, EMAIL);
-
-        assertNotNull(funcionario);
+        Assertions.assertNotNull(funcionario);
     }
 
     @Test
     public void testBuscarFuncionarioPorEmailOuCpfParaEmailInvalido() {
         Funcionario funcionario = this.funcionarioRepository.findByCpfOrEmail(CPF, "email@invalido.com");
-
-        assertNotNull(funcionario);
+        Assertions.assertNotNull(funcionario);
     }
 
     @Test
     public void testBuscarFuncionarioPorEmailECpfParaCpfInvalido() {
         Funcionario funcionario = this.funcionarioRepository.findByCpfOrEmail("12345678901", EMAIL);
-
-        assertNotNull(funcionario);
+        Assertions.assertNotNull(funcionario);
     }
 
     private Funcionario obterDadosFuncionario(Empresa empresa) throws NoSuchAlgorithmException {
@@ -86,7 +78,6 @@ public class FuncionarioRepositoryTest {
         funcionario.setEmpresa(empresa);
         return funcionario;
     }
-
     private Empresa obterDadosEmpresa() {
         Empresa empresa = new Empresa();
         empresa.setRazaoSocial("Empresa de exemplo");

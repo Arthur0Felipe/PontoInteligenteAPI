@@ -8,50 +8,23 @@ import java.util.Date;
 @Entity
 @Table(name = "lancamento")
 public class Lancamento implements Serializable {
-
     private static final long serialVersionUID = 6524560251526772839L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Temporal(TemporalType.TIMESTAMP)
     private Date data;
     private String descricao;
     private String localizacao;
     private Date dataCriacao;
     private Date dataAtualizacao;
-    @Enumerated(EnumType.STRING)
     private TipoEnum tipo;
-    @ManyToOne(fetch = FetchType.EAGER)
     private Funcionario funcionario;
 
     public Lancamento() {
+
     }
 
-    @PrePersist
-    public void prePersist(){
-        dataAtualizacao = new Date();
-    }
-
-    @PreUpdate
-    public void preUpdate(){
-        final Date atual = new Date();
-        dataCriacao = atual;
-        dataAtualizacao = atual;
-    }
-
-    @Override
-    public String toString() {
-        return "Lancamento [id=" + id +
-                ", data = " + data +
-                ", descricao = " + descricao +
-                ", localizacao = " + localizacao +
-                ", dataCriacao = " + dataCriacao +
-                ", dataAtualizacao = " + dataAtualizacao +
-                ", tipo = " + tipo +
-                ", funcionario = " + funcionario + "]";
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -60,14 +33,8 @@ public class Lancamento implements Serializable {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data", nullable = false)
     public Date getData() {
         return data;
     }
@@ -76,6 +43,16 @@ public class Lancamento implements Serializable {
         this.data = data;
     }
 
+    @Column(name = "descricao", nullable = true)
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    @Column(name = "localizacao", nullable = true)
     public String getLocalizacao() {
         return localizacao;
     }
@@ -84,6 +61,7 @@ public class Lancamento implements Serializable {
         this.localizacao = localizacao;
     }
 
+    @Column(name = "data_criacao", nullable = false)
     public Date getDataCriacao() {
         return dataCriacao;
     }
@@ -92,6 +70,7 @@ public class Lancamento implements Serializable {
         this.dataCriacao = dataCriacao;
     }
 
+    @Column(name = "data_atualizacao", nullable = false)
     public Date getDataAtualizacao() {
         return dataAtualizacao;
     }
@@ -100,6 +79,8 @@ public class Lancamento implements Serializable {
         this.dataAtualizacao = dataAtualizacao;
     }
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo", nullable = false)
     public TipoEnum getTipo() {
         return tipo;
     }
@@ -108,11 +89,35 @@ public class Lancamento implements Serializable {
         this.tipo = tipo;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER)
     public Funcionario getFuncionario() {
         return funcionario;
     }
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        dataAtualizacao = new Date();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        final Date dataAtual = new Date();
+        this.dataCriacao = dataAtual;
+        this.dataAtualizacao = dataAtual;
+    }
+
+    public String stringfy() {
+        return "Lancamento [id: " + this.id +
+                ", data: " + this.data +
+                ", descricao: " + this.descricao +
+                ", localizacao: " + this.localizacao +
+                ", dataCriacao: " + this.dataCriacao +
+                ", dataAtualizacao: " + this.dataAtualizacao +
+                ", tipo: " + this.tipo +
+                ", funcionario: " + this.funcionario + "]";
     }
 }
