@@ -94,5 +94,4 @@ public class LancamentoRepositoryTest {
         empresa.setCnpj("51463645000100");
         return empresa;
     }
-
 }
