@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/funcionarios")
+@RequestMapping("/api/funcionarios")
 @CrossOrigin(origins = "*")
 public class FuncionarioController {
     private static final Logger log = LoggerFactory.getLogger(FuncionarioController.class);

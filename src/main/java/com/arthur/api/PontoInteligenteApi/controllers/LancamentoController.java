@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/lancamentos")
+@RequestMapping("/api/lancamentos")
 @CrossOrigin(origins = "*")
 public class LancamentoController {
 

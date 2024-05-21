@@ -23,7 +23,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/cadastrar-pf")
+@RequestMapping("/api/cadastrar-pf")
 @CrossOrigin(origins = "*")
 public class CadastroPFController {
     private static final Logger log = LoggerFactory.getLogger(CadastroPFController.class);
